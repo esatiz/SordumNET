@@ -34,7 +34,7 @@ int main()
 		
 		// TAKAS
 		
-		if (dizi[i] != dizi[min]) // Sayılar aynıysa XOR kapısının sonucu 0 olur! Sayılarımızın kaybolmasını istemeyiz!
+		if (dizi[i] != dizi[min]) // SayÄ±lar aynÄ±ysa XOR kapÄ±sÄ±nÄ±n sonucu 0 olur! SayÄ±larÄ±mÄ±zÄ±n kaybolmasÄ±nÄ± istemeyiz!
 		{
 			dizi[i] ^= dizi[min];
 			dizi[min] ^= dizi[i];
