@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
+
+#define MAX_LEN 260
 
 int byte = 0;
 
@@ -74,17 +77,16 @@ int main(int argc, char *argv[])
 {
 	setlocale(LC_ALL, "Turkish");
 	
-	char *uyari[] = { "Çok fazla parametre girdiniz!", "Lütfen dosyayı programa sürükleyip bırakınız..." };
+	char dosya_adi[MAX_LEN + 1];
 	
 	if (argc != 2)
 	{
-		printf(uyari[argc > 2 ? 0 : 1]);
-		
-		getch();
-		exit(0);
+		printf("Lütfen dosya adını yazınız > ");
+		gets(dosya_adi); // Lütfen çok uzun yazı yazmayınız!
 	}
+	else strcpy(dosya_adi, argv[1]);
 	
-	FILE *source = fopen(argv[1], "rb");
+	FILE *source = fopen(dosya_adi, "rb");
 	
 	if (source == NULL)
 	{
@@ -95,7 +97,7 @@ int main(int argc, char *argv[])
 	}
 	
 	unsigned char k, *str = NULL;
-	int i, counter = 0;
+	int i, j, counter = 0;
 	
 	while (k = fgetc(source) != EOF)
 	{
@@ -209,7 +211,18 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-	FILE *yeni = fopen("fixed.txt", "wb");
+	char yeni_isim[MAX_LEN + 1];
+	
+	for (j = strlen(dosya_adi) - 1; dosya_adi[j] != '.'; j--);
+	
+	for (i = 0; i < j; i++)
+	{
+		yeni_isim[i] = dosya_adi[i];
+	}
+	
+	strcat(yeni_isim, "_duzgun.txt");
+	
+	FILE *yeni = fopen(yeni_isim, "wb");
 	
 	if (yeni == NULL)
 	{
